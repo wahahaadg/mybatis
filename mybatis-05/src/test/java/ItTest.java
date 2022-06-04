@@ -43,7 +43,7 @@ public class ItTest {
             SqlSession sqlSession = MybatisUtils.getSqlSession();
             BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
 
-            HashMap map = new HashMap();
+            HashMap<String, String> map = new HashMap<>();
             map.put("title","Java");
             mapper.queryBlogIF(map);
 
@@ -52,8 +52,9 @@ public class ItTest {
 
     @Test
     public void test3(){
-            String s = "test.email+alex+aaa";
-            String local = s.split("\\+")[2]; // 去掉本地名第一个加号之后的部分
-            System.out.println(local);
+        String s = "test.email+alex+aaa";
+        String local = s.split("\\+")[2]; // 去掉本地名第一个加号之后的部分
+        System.out.println(local);
+        System.out.println("push test");
     }
 }
