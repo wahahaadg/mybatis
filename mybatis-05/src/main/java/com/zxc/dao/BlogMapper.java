@@ -10,4 +10,6 @@ public interface BlogMapper {
     void addBlog(Blog blog);
 
     List<Blog> queryBlogIF(Map map);
+
+    List<Blog> queryBlogChoose(Map map);
 }

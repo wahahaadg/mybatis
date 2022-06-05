@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class ItTest {
     @Test
@@ -40,21 +41,22 @@ public class ItTest {
 
     @Test
     public void test2(){
-            SqlSession sqlSession = MybatisUtils.getSqlSession();
-            BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
 
-            HashMap<String, String> map = new HashMap<>();
-            map.put("title","Java");
-            mapper.queryBlogIF(map);
+        HashMap<String, Integer> map = new HashMap<>();
+        //map.put("title","Java");
+        map.put("views",9999);
+        List<Blog> blogs = mapper.queryBlogChoose(map);
 
-            sqlSession.close();
+        for (Blog blog: blogs){
+            System.out.println(blog);
+        }
+        sqlSession.close();
     }
 
     @Test
     public void test3(){
-        String s = "test.email+alex+aaa";
-        String local = s.split("\\+")[2]; // 去掉本地名第一个加号之后的部分
-        System.out.println(local);
-        System.out.println("push test");
+        int min = 2;
     }
 }
