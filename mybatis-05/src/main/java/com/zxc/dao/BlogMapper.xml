@@ -8,17 +8,17 @@
         values (#{id}, #{title}, #{author}, #{create_time}, #{views});
     </insert>
 
-    <select id="queryBlogIF" parameterType="map" resultType="Blog">
-        select * from mybatis.blog
-        <where>
-            <if test="title != null">
-                title = #{title}
-            </if>
-            <if test="author != null">
-                and author = #{author}
-            </if>
-        </where>
-    </select>
+
+
+    <sql id="if-title-author">
+        <if test="title != null">
+            title = #{title}
+        </if>
+        <if test="author != null">
+            and author = #{author}
+        </if>
+    </sql>
+
 
     <select id="queryBlogChoose" parameterType="map" resultType="Blog">
         select * from mybatis.blog
@@ -34,6 +34,29 @@
                     and views = #{views}
                 </otherwise>
             </choose>
+        </where>
+    </select>
+
+    <update id="updateBlog" parameterType="map">
+        update mybatis.blog
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="author != null">
+                author = #{author}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <select id="queryBlogForEach" parameterType="map" resultType="Blog">
+        select * from mybatis.blog
+        <where>
+            <foreach collection="ids" item="id" open="and (" close=")" separator="or">
+                id = #{id}
+            </foreach>
         </where>
     </select>
 </mapper>

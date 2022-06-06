@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxc.dao.Provider.ProviderMapper">
+    <select id="getProList" resultType="provider">
+        select * from smbms.smbms_provider
+    </select>
+
+    <select id="getProviderList" resultType="provider">
+        select * from smbms.smbms_provider
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="proName!=null and proName!=''">
+                and proName like CONCAT('%',#{proName},'%')
+            </if>
+            <if test="proCode!=null and proCode!=''">
+                and proCode like CONCAT('%',#{proCode},'%')
+            </if>
+        </trim>
+        order by creationDate DESC
+    </select>
+
+    <select id="getProviderById" resultType="provider">
+        select * from smbms.smbms_provider
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="getProviderCounts" resultType="int">
+        select count(1) as count from smbms.smbms_provider
+        <where>
+            <if test="proCode!=null and proCOde!=''">
+                and proCode like CONCAT('%',#{proCode},'%')
+            </if>
+            <if test="proName!=null and proName!=''">
+                and proName like CONCAT('%',#{proName},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="addProvider" parameterType="provider">
+        insert into smbms.smbms_provider(id,proCode,proName,proDesc,proContact,proPhone,proAddress,proFax,createdBy,creationDate)
+        values(#{id},#{proCode},#{proName},#{proDesc},#{proContact},#{proPhone},#{proAddress},#{proFax},#{createdBy},#{creationDate,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="addProviderMap" parameterType="map" >
+        insert into smbms.smbms_provider(id,proCode,proName,proDesc,proContact,proPhone,proAddress,proFax,createdBy,creationDate)
+        values(#{id},#{proCode},#{proName},#{proDesc},#{proContact},#{proPhone},#{proAddress},#{proFax},#{createdBy},#{creationDate,jdbcType=TIMESTAMP})
+    </insert>
+
+    <delete id="deleteProviderById" parameterType="int">
+        delete from smbms.smbms_provider where id = #{id}
+    </delete>
+
+    <update id="modifyProvider" parameterType="provider">
+        update smbms.smbms_provider
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="proCode!=null">
+                proCode=#{proCode},
+            </if>
+            <if test="proName!=null">
+                proName=#{proName},
+            </if>
+            <if test="proDesc!=null">
+                proDesc=#{proDesc},
+            </if>
+            <if test="proContact!=null">
+                proContact=#{proContact},
+            </if>
+            <if test="proPhone!=null">
+                proPhone=#{proPhone},
+            </if>
+            <if test="proAddress!=null">
+                proAddress=#{proAddress},
+            </if>
+            <if test="proFax!=null">
+                proFax=#{proFax},
+            </if>
+            <if test="modifyBy!=null">
+                modifyBy=#{modifyBy},
+            </if>
+            <if test="modifyDate!=null">
+                modifyDate=#{modifyDate}
+            </if>
+        </trim>
+    </update>
+
+    <update id="modifyProviderMap" parameterType="map">
+        update smbms.smbms_provider
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="proCode!=null">
+                proCode=#{proCode},
+            </if>
+            <if test="proName!=null">
+                proName=#{proName},
+            </if>
+            <if test="proDesc!=null">
+                proDesc=#{proDesc},
+            </if>
+            <if test="proContact!=null">
+                proContact=#{proContact},
+            </if>
+            <if test="proPhone!=null">
+                proPhone=#{proPhone},
+            </if>
+            <if test="proAddress!=null">
+                proAddress=#{proAddress},
+            </if>
+            <if test="proFax!=null">
+                proFax=#{proFax},
+            </if>
+            <if test="modifyBy!=null">
+                modifyBy=#{modifyBy},
+            </if>
+            <if test="modifyDate!=null">
+                modifyDate=#{modifyDate}
+            </if>
+        </trim>
+    </update>
+
+</mapper>
